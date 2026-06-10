@@ -4,7 +4,7 @@ def menu():
           "\n2. Nhập thêm hàng hóa mới" +
           "\n3. Cập nhật số lượng tồn kho theo ID" +
           "\n4. Thoát chương trình")
-def validate_input(prompt: str, input_type: str = "string"):
+def validate_get(prompt: str, input_type: str = "string"):
     while True:
         user_input = input(prompt)
         if not user_input:
@@ -33,15 +33,15 @@ def show_inventory(inventory_list):
         print(f"{inventory.get('id').upper():<8} | {inventory.get('name'):<20} | {inventory.get('quantity'):<15}")
 def add_item(inventory_list):
     while True:
-        id_inventory = validate_input("Nhập vào mã kho hàng: ","int")
+        id_inventory = validate_get("Nhập vào mã kho hàng: ","int")
         for inventory in inventory_list:
             if(id_inventory.lower() == inventory.get("id").lower()):
                 print("Mã hàng này đã tồn tại, nhập lại ")
                 break
 
         else:
-            name_inventory = validate_input("Nhập vào tên kho hàng: ")
-            quantity_inventory = validate_input("Nhập vào số lượng: ","int")
+            name_inventory = validate_get("Nhập vào tên kho hàng: ")
+            quantity_inventory = validate_get("Nhập vào số lượng: ","int")
             new_inventory = {
                 "id": id_inventory,
                 "name": name_inventory,
@@ -56,11 +56,11 @@ def update_quantity(inventory_list):
         print("Kho hàng đang trống!")
         return
     print("CẬP NHẬT SỐ LƯỢNG TỒN KHO")
-    id_quantity = validate_input("Nhập mã hàng hóa cần sửa: ")
+    id_quantity = validate_get("Nhập mã hàng hóa cần sửa: ")
     for inventory in inventory_list:
         if (id_quantity.lower() == inventory.get("id").lower()):
             print(f"Tìm thấy hàng hóa: {inventory.get("name")} (Số lượng hiện tại: {inventory.get("quantity")})")
-            quantity_store = validate_input("Nhập số lượng mới: ","int")
+            quantity_store = validate_get("Nhập số lượng mới: ","int")
             inventory["quantity"] = quantity_store
             print("Cập nhật số lượng thành công!")
             break
