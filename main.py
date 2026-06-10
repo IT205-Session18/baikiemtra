@@ -33,7 +33,7 @@ def show_inventory(inventory_list):
         print(f"{inventory.get('id').upper():<8} | {inventory.get('name'):<20} | {inventory.get('quantity'):<15}")
 def add_item(inventory_list):
     while True:
-        id_inventory = validate_input("Nhập vào mã kho hàng: ")
+        id_inventory = validate_input("Nhập vào mã kho hàng: ","int")
         for inventory in inventory_list:
             if(id_inventory.lower() == inventory.get("id").lower()):
                 print("Mã hàng này đã tồn tại, nhập lại ")
@@ -41,7 +41,7 @@ def add_item(inventory_list):
 
         else:
             name_inventory = validate_input("Nhập vào tên kho hàng: ")
-            quantity_inventory = validate_input("Nhập vào số lượng: ")
+            quantity_inventory = validate_input("Nhập vào số lượng: ","int")
             new_inventory = {
                 "id": id_inventory,
                 "name": name_inventory,
@@ -52,19 +52,20 @@ def add_item(inventory_list):
             break
 
 def update_quantity(inventory_list):
-        if not inventory_list:
-            print("Danh sách rỗng")
-            return
-        id_quantity = validate_input("Nhập vào mã kho hàng: ")
-        for inventory in inventory_list:
-                if(id_quantity.lower() == inventory.get("id").lower()):
-                    print("Đã tìm thấy đơn hàng ")
-                    
-                else:
-                    quantity = validate_input("Nhập vào số lượng: ")
-                    inventory_list["quantity"] = quantity
-        else:
-            print("Không tìm thấy hàng hóa có mã [ID]!")
+    if not inventory_list:
+        print("Kho hàng đang trống!")
+        return
+    print("CẬP NHẬT SỐ LƯỢNG TỒN KHO")
+    id_quantity = validate_input("Nhập mã hàng hóa cần sửa: ")
+    for inventory in inventory_list:
+        if (id_quantity.lower() == inventory.get("id").lower()):
+            print(f"Tìm thấy hàng hóa: {inventory.get("name")} (Số lượng hiện tại: {inventory.get("quantity")})")
+            quantity_store = validate_input("Nhập số lượng mới: ","int")
+            inventory["quantity"] = quantity_store
+            print("Cập nhật số lượng thành công!")
+            break
+    else:
+        print(f"Không tìm thấy hàng hóa có mã {id_quantity}!")
 
 
 def main():
